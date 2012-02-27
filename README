@@ -1,0 +1,33 @@
+Type - A Dynamic Type Library
+
+Data & Type ==> Implementation
+
+Key Concepts:
+
+    - Data: Anything you can point at (void *).
+    - Type: A name (const char *) and a specification (typically a structure).
+    - Implementation: Any instance satisfying a type specification (void *).
+    - Type Tag: A map between types and their implementations.
+
+General Usage:
+
+    1 - Data is associated with a type tag. There are a couple of ways to
+    accomplish this. Two common ones are to add a pointer to a type_tag
+    structure (inside of data), or use the global API which associates data
+    with a type_tag structure.
+
+    2 - A type is associated with its implementation. This is done using
+    type_tag_attach(...). Once a type has an implementation attached it can be
+    acquired and used.
+
+    3 - Retrieve and use the type implementation using type_tag_acquire(...).
+    If, for example, the implementation is a structure of callbacks:
+    impl->callback(self, ...).
+
+    4 - Release the type implementations using type_tag_release(...).
+
+    5 - Detach the type implementation using type_tag_detach(...).
+
+Utility macros are provided to ease the burden of the acquire, use, and
+release cycle: type_tag_with(...) and type_with(...).
+

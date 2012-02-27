@@ -1,0 +1,17 @@
+Installation From Source Checkout:
+
+mkdir m4
+autoreconf -is
+./configure
+make
+make check
+make install
+
+Installation From Release Tarball:
+
+tar -xzf ec.tar.gz
+cd ec
+./configure
+make
+make check
+make install
