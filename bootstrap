@@ -1,0 +1,12 @@
+#!/bin/bash
+set -e
+set -u
+
+if [ -d m4 ]; then
+  rm -fr m4
+fi
+
+mkdir m4
+autoreconf -is
+
+echo "Now run: ./configure"
