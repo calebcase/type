@@ -248,7 +248,8 @@ extern struct type_tag_i TYPE_TAG_I;
  */
 #define type_tag_with(tag_, type_, impl_) \
     for (struct type_tag_impl type_tag_with_impl_, \
-         *type_tag_with_once_ = NULL; \
+         *type_tag_with_once_ = NULL, \
+         *type_tag_with_impl_p_ = &type_tag_with_impl_; \
          type_tag_with_once_ == NULL && ( \
              type_tag_with_impl_.tag = tag_, \
              type_tag_with_impl_.type = type_, \
@@ -257,7 +258,7 @@ extern struct type_tag_i TYPE_TAG_I;
              impl_ = type_tag_with_impl_.impl, \
              1); \
          type_tag_with_once_ = (void *)1) \
-        ec_with (&type_tag_with_impl_, (ec_unwind_f)type_tag_release) \
+        ec_with (type_tag_with_impl_p_, (ec_unwind_f)type_tag_release) \
 
 /*** Global ***/
 
@@ -362,7 +363,8 @@ type_release(
  */
 #define type_with(data_, tag_) \
     for (struct type_tagged type_with_tagged_, \
-         *type_with_tag_once_ = NULL; \
+         *type_with_tag_once_ = NULL, \
+         *type_with_tagged_p_ = &type_with_tagged_; \
          type_with_tag_once_ == NULL && ( \
              type_with_tagged_.data = data_, \
              type_with_tagged_.tag = NULL, \
@@ -370,6 +372,6 @@ type_release(
              tag_ = type_with_tagged_.tag, \
              1); \
          type_with_tag_once_ = (void *)1) \
-        ec_with (&type_with_tagged_, (ec_unwind_f)type_release) \
+        ec_with (type_with_tagged_p_, (ec_unwind_f)type_release) \
 
 #endif /* TYPE_H */
